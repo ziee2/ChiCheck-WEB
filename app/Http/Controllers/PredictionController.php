@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\report_models;
-use App\Models\ReportModel;
+use App\Models\Predictions;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -11,14 +10,27 @@ use GuzzleHttp\Client;
 
 class PredictionController extends Controller
 {
+
+    // Validasi request
     public function predict(Request $request)
     {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Mengharuskan file gambar dengan format jpeg, png, jpg, atau gif dan maksimal ukuran 2MB
+            'user_id' => 'required'
+        ], [
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Format gambar yang didukung hanya jpeg, png, jpg, atau gif.',
+            'image.max' => 'Ukuran gambar tidak boleh melebihi 2MB.',
+            'image.required' => 'Harap unggah sebuah gambar.',
+            'user_id.required' => 'ID Pengguna harus diisi.'
+        ]);
+
+
         // Ambil gambar yang diunggah
         $image = $request->file('image');
         $userId = $request->input('user_id');
 
-        if ($image && $image->isValid()) 
-            {
+        if ($image && $image->isValid()) {
             $client = new Client();
             try {
                 $client->post('http://127.0.0.1:5000/predict', [
@@ -34,14 +46,19 @@ class PredictionController extends Controller
                         ],
                     ],
                 ]);
-                
-                $report = report_models::Where('user_id', $request->user()->id)->with("reportDisease.disease")->latest()->first();
 
-                return view('scan', ['report' => $report]);
+                $prediction = Predictions::where('user_id', $userId)->latest()->first();
+                // $prediction = Predictions::latest()->value('id');
+
+                // return view('pages.user-pages.hasil-scan',  ['prediction' => $prediction ]);
+                return view('pages.user-pages.hasil-scan',  ['prediction' => $prediction, 'img_url' => $prediction->img_url, 'penyakit' => $prediction->penyakit, 'deskripsi' => $prediction->deskripsi, 'solusi' => $prediction->solusi, ]);
+                
             }catch (\Exception $e) {
-                return view('scan', ['error' => $e-> getMessage()]);
+                return view('pages.user-pages.scan', ['error' => $e-> getMessage()]);
             }
         }
-        return view('scan', ['error' => 'invalid image file']);
+        return view('pages.user-pages.scan', ['error' => 'invalid image file']);
+        // return view('pages.user-pages.scan')->withErrors(['error' => $e->getMessage()]);
     }
+
 }

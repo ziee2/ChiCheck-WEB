@@ -21,7 +21,7 @@
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                NOMOR
+                                                ID
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -61,7 +61,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 text-sm">{{ $loop->iteration }}</p>
+                                                        <p class="mb-0 text-sm"></p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -118,7 +118,7 @@
         </div>
 
 
-    <div class="modal fade" id="editStatusModal{{ $user->id }}" tabindex="-1" aria-labelledby="editStatusModalLabel{{ $user->id }}" aria-hidden="true">
+        <div class="modal fade" id="editStatusModal{{ $user->id }}" tabindex="-1" aria-labelledby="editStatusModalLabel{{ $user->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

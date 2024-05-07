@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diseases_models', function (Blueprint $table) {
+        Schema::create('predictions', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("description");
-            $table->string("solution");
+            $table->string('penyakit');
+            $table->string('deskripsi');
+            $table->string('solusi');
+            $table->string('img_url');
+            $table->foreignId("user_id")->nullable()->constrained("users");
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diseases_models');
+        Schema::dropIfExists('predictions');
     }
 };

@@ -17,7 +17,7 @@
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         <div class="container">
-                                            <div class="row justify-content-center flex-column flex-lg-row-reverse justify-between items-center py-6 text-center text-lg-right my-5">
+                                            <div class="row justify-content-center flex-column flex-lg-row-reverse justify-between items-center py-1 text-center text-lg-right my-5">
                                                 <div class="col-lg-8">
                                                     <h1 class="font-weight-bold display-4 mb-4 mb-lg-5">
                                                         Solusi Pintar Untuk 
@@ -28,31 +28,28 @@
                                                     Kami menggabungkan teknologi kecerdasan buatan dengan analisis kotoran ayam untuk mendeteksi penyakit secara cepat dan akurat. Lindungi kawanan ayam Anda dengan menggunakan aplikasi canggih ini!
                                                     </p>
                                                 </div>
-                                                <div class="mb-1 col-lg-8">
-                                                    <input type="file" id="image-upload-input" style="display:none;" accept="image/*">
-                                                    <label for="image-upload-input" class="btn btn-warning btn-lg text-white me-auto fw-bold">Upload Image</label>
-                                                </div>
 
-                                            <div class="col-lg-12">
-                                                    <div id="preview-container" class="row justify-content-center my-5 mx-auto" style="display: none;">
-                                                        <p class="fw-bold text-warning text-center mb-5">Disease Prediction</p>
-                                                        <form action="/predict" method="post" enctype="multipart/form-data">
-                                                            {{-- @method('POST') --}}
-                                                            @csrf
-                                                            <div class="col-lg-6 text-center social-media my-2 pb-5 pb-md-3">
-                                                                <input type="text" name="user_id" hidden value="1">
-                                                                <div class="frame mx-auto" style="width: 500px; height: 350px; overflow: hidden; border-radius: 8px">
-                                                                    <img class="" id="preview-image" name=""image"" alt="" style="width: 100%; height:100%; object-fit:cover;">
-                                                                </div>
-
-                                                                <div id="solusi" class="mt-4">
-                                                                    <h1>fsdfsfwefe</h1>
-                                                                </div>
-                                                                <button class= "mt-4 btn btn-warning btn-lg text-white fw-bold" type="submit">Analyze Image</button>
-                                                                
-                                                            </div>
-                                                        </form>
+                                                <form action="{{ route('predict') }}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                                    <div class="mb-1 col-lg-8">
+                                                        <input type="file" name="image" id="image-upload-input" style="display:none;" accept="image/*" >
+                                                        <label for="image-upload-input" class="btn btn-warning btn-lg text-white me-auto fw-bold">Upload Image</label>
                                                     </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div id="preview-container" class="row justify-content-center my-5 mx-auto" style="display: none;">
+                                                            <p class="fw-bold text-warning text-center mb-5">Disease Prediction</p>
+                                                            <div class="frame mx-auto" style="width: 500px; height: 350px; overflow: hidden; border-radius: 8px">
+                                                                <img class="" id="preview-image" alt="" style="width: 100%; height:100%; object-fit:cover;">
+                                                            </div>
+                                                            <button class= "mt-4 btn btn-warning btn-lg text-white fw-bold" type="submit">Analyze Image</button>
+                                                            <a class="mt-4 btn btn-warning btn-lg text-white fw-bold" href=" {{ route('scan') }} ">
+                                                                <span class="ms-2 font-weight-bold text-white">Batal</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                                 </div>
                                             </div>
                                                 
@@ -69,6 +66,7 @@
                                                                 previewImage.src = e.target.result;
                                                                 document.getElementById('preview-container').style.display = 'block';
                                                             }
+                                            
                                                             reader.readAsDataURL(file);
                                                         }
                                                     });

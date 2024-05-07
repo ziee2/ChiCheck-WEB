@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Auth;
 
 class SessionsController extends Controller
 {
@@ -30,9 +31,48 @@ class SessionsController extends Controller
             ]);
         }
 
-        session()->regenerate();
+            // Ambil pengguna yang sedang masuk
+        $user = auth()->user();
 
-        return redirect('/dashboard');
+        // Periksa status akun pengguna
+        if ($user->status === 'active') {
+            // Periksa peran pengguna
+            if ($user->role === 'admin') {
+                // Jika pengguna adalah admin, arahkan ke dashboard admin
+                return redirect()->route('dashboard');
+            } elseif ($user->role === 'user') {
+                // Jika pengguna adalah user, arahkan ke dashboard user
+                return redirect()->route('dashboard');
+            } else {
+                // Jika peran tidak dikenali, lempar pengecualian
+                throw new \Exception('Unknown user role.');
+            }
+        } elseif ($user->status === 'inactive') {
+            // Jika akun tidak aktif, logout pengguna dan beri pesan kesalahan
+            auth()->logout();
+            throw ValidationException::withMessages([
+                'email' => 'Your account is inactive. Please contact support for assistance.'
+            ]);
+        } else {
+            // Jika status tidak dikenali, lempar pengecualian
+            throw new \Exception('Unknown account status.');
+        }
+    
+
+
+        // // Periksa peran pengguna
+        // if ($user->role === 'admin') {
+        //     // Jika pengguna adalah admin, arahkan ke dashboard admin
+        //     return redirect()->route('dashboard');
+        // } elseif ($user->role === 'user') {
+        //     // Jika pengguna adalah user, arahkan ke dashboard user
+        //     return redirect()->route('dashboard');
+        // }
+
+        // // session()->regenerate();
+
+        // // return redirect('/dashboard');
+        // throw new \Exception('Unknown user role.');
 
     }
 
@@ -76,7 +116,7 @@ class SessionsController extends Controller
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
     }
-
+    
     public function destroy()
     {
         auth()->logout();

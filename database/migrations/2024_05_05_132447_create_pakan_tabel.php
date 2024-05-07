@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('report_models', function (Blueprint $table) {
+        Schema::create('pakan_tabel', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->float('stok_pakan');
             $table->foreignId("user_id")->nullable()->constrained("users");
-            $table->string("date");
-            $table->string("raw_image");
-            $table->string("result_image");
             $table->timestamps();
-            
         });
     }
 
@@ -27,7 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('report_models');
+        Schema::dropIfExists('pakan_tabel');
     }
 };
-
