@@ -16,17 +16,17 @@
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="{{ asset('assets') }}/img/bruce-mars.jpg" alt="profile_image"
+                            <img src="{{ asset('storage/profile_pictures/' . Auth::user()->image) }}" alt="profile_image"
                                 class="w-100 border-radius-lg shadow-sm">
                         </div>
                     </div>
                     <div class="col-auto my-auto">
                         <div class="h-100">
                             <h5 class="mb-1">
-                            {{ auth()->user()->name }}
+                            {{ auth()->user()->username }}
                             </h5>
                             <p class="mb-0 font-weight-normal text-sm">
-                            {{ auth()->user()->role }}
+                            {{ auth()->user()->level }}
                             </p>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                         href="{{ route('user-profile') }}"
                                         role="tab" aria-selected="false">
                                         <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                                        <span class="ms-1">Edit Profile</span>
+                                        <span class="ms-1">Ubah Profile</span>
                                     </a>
                                 </li>
                             </ul>
@@ -52,7 +52,7 @@
                                 <div class="card-header pb-0 p-3">
                                     <div class="row">
                                         <div class="col-md-8 d-flex align-items-center">
-                                            <h6 class="mb-3q">Profile Information</h6>
+                                            <h6 class="mb-3q">Informasi Profile</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -60,13 +60,13 @@
 
                                     <ul class="list-group">
                                         <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
-                                                class="text-dark">Name: </strong> &nbsp; {{ auth()->user()->name }}</li>
+                                                class="text-dark">Username: </strong> &nbsp; {{ auth()->user()->username }}</li>
                                         <li class="list-group-item border-0 ps-0 text-sm"><strong
                                                 class="text-dark">Email: </strong> &nbsp; {{ auth()->user()->email }}</li>
                                         <!-- <li class="list-group-item border-0 ps-0 text-sm"><strong
                                                 class="text-dark">Password:</strong> &nbsp; {{ auth()->user()->password }}</li> -->
                                         <li class="list-group-item border-0 ps-0 text-sm"><strong
-                                                class="text-dark">Phone:</strong> &nbsp; {{ auth()->user()->phone }}</li>
+                                                class="text-dark">Nomor handphone:</strong> &nbsp; {{ auth()->user()->no_hp }}</li>
                                         <li class="list-group-item border-0 ps-0 text-sm"><strong
                                                 class="text-dark">Alamat:</strong> &nbsp; {{ auth()->user()->location }}</li>
                                     </ul>

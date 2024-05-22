@@ -18,67 +18,96 @@ class SessionsController extends Controller
         return view('sessions.create');
     }
 
+    // public function store()
+    // {
+    //     $attributes = request()->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required'
+    //     ],
+    //     [
+    //         'email.required' => 'Email harus diisi.',
+    //         'email.email' => 'Email harus dalam format yang benar.',
+    //         'password.required' => 'Password harus diisi.'
+    //     ]);
+    //     if (! auth()->attempt($attributes)) {
+    //         throw ValidationException::withMessages([
+    //             'email' => 'Mohon periksa kembali Email dan password Anda'
+    //         ]);
+    //     }
+
+    //         // Ambil pengguna yang sedang masuk
+    //     $user = auth()->user();
+
+    //     // Periksa status akun pengguna
+    //     if ($user->status === 'Active') {
+    //         // Periksa peran pengguna
+    //         if ($user->level === 'Admin') {
+    //             // Jika pengguna adalah admin, arahkan ke dashboard admin
+    //             return redirect()->route('dashboard-admin');
+    //         } elseif ($user->level === 'Owner') {
+    //             // Jika pengguna adalah user, arahkan ke dashboard user
+    //             return redirect()->route('dashboard');
+    //         } else {
+    //             // Jika peran tidak dikenali, lempar pengecualian
+    //             throw new \Exception('Unknown user role.');
+    //         }
+    //     } elseif ($user->status === 'Inactive') {
+    //         // Jika akun tidak aktif, logout pengguna dan beri pesan kesalahan
+    //         auth()->logout();
+    //         throw ValidationException::withMessages([
+    //             'email' => 'akun ada berstatus inactive, tolong hubungi admin'
+    //         ]);
+    //     } else {
+    //         // Jika status tidak dikenali, lempar pengecualiann
+    //         throw new \Exception('Status Tidak Dikenali.');
+    //     }
+    // }
+
+
     public function store()
     {
         $attributes = request()->validate([
             'email' => 'required|email',
             'password' => 'required'
+        ], [
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Email harus dalam format yang benar.',
+            'password.required' => 'Password harus diisi.'
         ]);
 
-        if (! auth()->attempt($attributes)) {
+        $user = User::where('email', $attributes['email'])->first();
+
+        if (!$user || !Hash::check($attributes['password'], $user->password)) {
             throw ValidationException::withMessages([
-                'email' => 'Your provided credentials could not be verified.'
+                'email' => 'Mohon periksa kembali Email dan password Anda'
             ]);
         }
 
-            // Ambil pengguna yang sedang masuk
-        $user = auth()->user();
+        Auth::login($user);
 
-        // Periksa status akun pengguna
-        if ($user->status === 'active') {
-            // Periksa peran pengguna
-            if ($user->role === 'admin') {
-                // Jika pengguna adalah admin, arahkan ke dashboard admin
-                return redirect()->route('dashboard');
-            } elseif ($user->role === 'user') {
-                // Jika pengguna adalah user, arahkan ke dashboard user
+        if ($user->status === 'Active') {
+            if ($user->level === 'Admin') {
+                return redirect()->route('dashboard-admin');
+            } elseif ($user->level === 'Owner') {
                 return redirect()->route('dashboard');
             } else {
-                // Jika peran tidak dikenali, lempar pengecualian
                 throw new \Exception('Unknown user role.');
             }
-        } elseif ($user->status === 'inactive') {
-            // Jika akun tidak aktif, logout pengguna dan beri pesan kesalahan
-            auth()->logout();
-            throw ValidationException::withMessages([
-                'email' => 'Your account is inactive. Please contact support for assistance.'
-            ]);
         } else {
-            // Jika status tidak dikenali, lempar pengecualian
-            throw new \Exception('Unknown account status.');
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'email' => 'Akun Anda berstatus inactive, tolong hubungi admin'
+            ]);
         }
-    
-
-
-        // // Periksa peran pengguna
-        // if ($user->role === 'admin') {
-        //     // Jika pengguna adalah admin, arahkan ke dashboard admin
-        //     return redirect()->route('dashboard');
-        // } elseif ($user->role === 'user') {
-        //     // Jika pengguna adalah user, arahkan ke dashboard user
-        //     return redirect()->route('dashboard');
-        // }
-
-        // // session()->regenerate();
-
-        // // return redirect('/dashboard');
-        // throw new \Exception('Unknown user role.');
-
     }
 
     public function show(){
         request()->validate([
             'email' => 'required|email',
+        ],
+        [
+            'email.email' => 'Email harus dalam format yang benar.',
+            'email.required' => 'Email harus diisi.',
         ]);
 
         $status = Password::sendResetLink(
@@ -86,8 +115,9 @@ class SessionsController extends Controller
         );
     
         return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
+                    ? back()->with(['status' => 'tautan untuk reset password telah dikirimkan melalui email.'])
+                    : back()->withErrors(['email' => 'akun yang anda masukan belum terdaftar']);
+                    
         
     }
 
@@ -95,16 +125,22 @@ class SessionsController extends Controller
         
         request()->validate([
             'token' => 'required',
-            'email' => 'required|email',
+            'email' => 'email|required',
             'password' => 'required|min:8|confirmed',
+        ],
+        [
+            'email.email' => 'Email harus dalam format yang benar.',
+            'email.required' => 'Email harus diisi.',
+            'password.required' => 'Password harus diisi.',
+            'password.confirmed' => 'Password tidak sesuai.'
         ]); 
-          
+
         $status = Password::reset(
             request()->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => ($password)
-                ])->setRememberToken(Str::random(60));
+                ]);
     
                 $user->save();
     
@@ -113,8 +149,8 @@ class SessionsController extends Controller
         );
     
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+                    ? redirect()->route('login')->with('status', 'Reset Password Berhasil')
+                    : back()->withErrors(['email' => ['Mohon periksa kembali Email dan Password anda']]);
     }
     
     public function destroy()

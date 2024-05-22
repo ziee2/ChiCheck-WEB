@@ -14,17 +14,17 @@
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="{{ asset('assets') }}/img/bruce-mars.jpg" alt="profile_image"
+                            <img src="{{ asset('storage/profile_pictures/' . Auth::user()->image) }}" alt="profile_image"
                                 class="w-100 border-radius-lg shadow-sm">
                         </div>
                     </div>
                     <div class="col-auto my-auto">
                         <div class="h-100">
                             <h5 class="mb-1">
-                                {{ auth()->user()->name }}
+                                {{ auth()->user()->username }}
                             </h5>
                             <p class="mb-0 font-weight-normal text-sm">
-                                {{ auth()->user()->role }}
+                                {{ auth()->user()->level }}
                             </p>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h6 class="mb-3">Profile Edit</h6>
+                                <h6 class="mb-3">Ubah Profile</h6>
                             </div>
                         </div>
                     </div>
@@ -61,10 +61,19 @@
                                         </button>
                                     </div>
                                 </div>
-                        @endif
+                                @endif
+                                
+                        <!-- @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif -->
+                        
                         <div class="row">
-                            
-                            
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Password</label>
                                 <!-- <a class="form-control border border-2 p-2"  href="">Change Password</a> -->
@@ -73,90 +82,116 @@
                                 </button>
                             </div>
                             
-                            <form method='POST' action='{{ route('user-profile') }}'>
+                            <form method='POST' action='{{ route('user-profile.update') }}' enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
+                                <div class="row">
+                                <div class="mb-3 col-md-6 ">
+                                    <label for="image">Foto Profil</label>
+                                    <input type="file" name="image" id="image">
+                                </div>
                                 <div class="mb-3 col-md-6 ">
                                     <label class="form-label">Email address</label>
-                                    <input type="email" name="email" class="form-control border border-2 p-2" value='{{ old('email', auth()->user()->email) }}'>
+                                    <input type="email" name="email" class="form-control border border-2 p-2" value='{{ old('email', auth()->user()->email) }}' readonly>
                                     @error('email')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
                             
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control border border-2 p-2" value='{{ old('name', auth()->user()->name) }}'>
-                                    @error('name')
-                                <p class='text-danger inputerror'>{{ $message }} </p>
-                                @enderror
-                                </div>
-                               
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label">Phone</label>
-                                    <input type="number" name="phone" class="form-control border border-2 p-2" value='{{ old('phone', auth()->user()->phone) }}'>
-                                    @error('phone')
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="username" class="form-control border border-2 p-2" value='{{ old('username', auth()->user()->username) }}'>
+                                    @error('username')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
                                 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Location</label>
-                                    <input type="text" name="location" class="form-control border border-2 p-2" value='{{ old('location', auth()->user()->location) }}'>
-                                    @error('location')
+                                    <label class="form-label">Nomor HandPhone</label>
+                                    <input type="number" name="no_hp" class="form-control border border-2 p-2" value='{{ old('no_hp', auth()->user()->no_hp) }}'>
+                                    @error('no_hp') 
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
                                 
+
+                                <div class="form-group">
+                                    <label for="provinsi_id">Provinsi</label>
+                                    <select class="form-control" id="provinsi_id" name="provinsi_id">
+                                        <option value="">Pilih Provinsi</option>
+                                        @foreach($provinsis as $provinsi)
+                                            <option value="{{ $provinsi->id }}" {{ $provinsi->id == old('provinsi_id', auth()->user()->provinsi_id) ? 'selected' : '' }}>{{ $provinsi->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kabupaten_id">Kabupaten</label>
+                                    <select class="form-control" id="kabupaten_id" name="kabupaten_id">
+                                        <option value="">Pilih Kabupaten</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kecamatan_id">Kecamatan</label>
+                                    <select class="form-control" id="kecamatan_id" name="kecamatan_id">
+                                        <option value="">Pilih Kecamatan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="desa_id">Desa</label>
+                                    <select class="form-control" id="desa_id" name="desa_id">
+                                        <option value="">Pilih Desa</option>
+                                    </select>
+                                </div>
+
+
 
                             </div>
-                            <button type="submit" class="btn bg-gradient-dark">Edit</button>
+                            <button type="submit" class="btn bg-gradient-dark">Simpan</button>
+                            <a href="{{ route('profile') }}" class="btn bg-gradient-dark">Kembali</a>
                         </form>
-                            <a href="{{ route('profile') }}" class="btn bg-gradient-dark">Batal</a>
 
+                    </div>
                     </div>
                 </div>
             </div>
 
-                            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+
+
+                <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <!-- <div class="modal-body">
-                                
-                            <form method="POST" action="{{ route('user-profile') }}">
-                            @csrf
+                            <div class="modal-body">
+                            <form method="POST" action="{{route('user-profile.changePassword') }}">
+                                @csrf
 
                                 <div class="mb-3">
-                                    <label for="current_password" class="form-label">Current Password</label>
+                                    <label for="current_password" class="form-label">Password Saat Ini</label>
                                     <input id="current_password" type="password" name="current_password" required class="form-control">
                                     @error('current_password') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="new_password" class="form-label">New Password</label>
-                                    <input id="new_password" type="password" name="new_password" required class="form-control">
-                                    @error('new_password') <span class="text-danger">{{ $message }}</span> @enderror
+                                    <label for="password" class="form-label">Password Baru</label>
+                                    <input id="password" type="password" name="password" required class="form-control">
+                                    @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Confirm New Password</label>
-                                    <input id="confirm_password" type="password" name="confirm_password" required class="form-control">
-                                    @error('confirm_password') <span class="text-danger">{{ $message }}</span> @enderror
+                                    <label for="password_confirmation" class="form-label">Konfirmasi Password Baru</label>
+                                    <input id="password_confirmation" type="password" name="password_confirmation" required class="form-control">
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Change Password</button>
+                                <button type="submit" class="btn btn-primary">Ubah Password</button>
                             </form>
 
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-
 
 
         </div>
@@ -165,3 +200,73 @@
     <x-plugins></x-plugins>
 
 </x-layout>
+
+<script>
+    $(document).ready(function() {
+        $('#provinsi_id').on('change', function() {
+            var provinsiID = $(this).val();
+            if(provinsiID) {
+                $.ajax({
+                    url: '/get-kabupatens/' + provinsiID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        console.log(data);
+                        $('#kabupaten_id').empty();
+                        $('#kabupaten_id').append('<option value="">Pilih kabupaten</option>');
+                        $.each(data, function(key, value) {
+                            $('#kabupaten_id').append('<option value="'+ key +'">'+ value.nama +'</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#kabupaten_id').empty();
+                $('#kabupaten_id').append('<option value="">Pilih kabupaten0</option>');
+            }
+        });
+
+        $('#kabupaten_id').on('change', function() {
+            var kabupatenID = $(this).val();
+            if(kabupatenID) {
+                $.ajax({
+                    url: '/get-kecamatans/' + kabupatenID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        console.log(data);
+                        $('#kecamatan_id').empty();
+                        $('#kecamatan_id').append('<option value="">Pilih kecamatan</option>');
+                        $.each(data, function(key, value) {
+                            $('#kecamatan_id').append('<option value="'+ key +'">'+ value.nama +'</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#kecamatan_id').empty();
+                $('#kecamatan_id').append('<option value="">Pilih 0kecamatan</option>');
+            }
+        });
+
+        $('#kecamatan_id').on('change', function() {
+            var kecamatanID = $(this).val();
+            if(kecamatanID) {
+                $.ajax({
+                    url: '/get-desas/' + kecamatanID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        console.log(data);
+                        $('#desa_id').empty();
+                        $('#desa_id').append('<option value="">Pilih Desa</option>');
+                        $.each(data, function(key, value) {
+                            $('#desa_id').append('<option value="'+ key +'">'+ value.nama +'</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#desa_id').empty();
+                $('#desa_id').append('<option value="">Pilih Desa</option>');
+            }
+        });
+    });
+</script>

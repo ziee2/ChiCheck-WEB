@@ -2,7 +2,7 @@
 
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-100"
-            style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
+            style="background-image: url('https://images.unsplash.com/photo-1471623817296-aa07ae5c9f47?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container my-auto">
                 <div class="row">
@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 @endif
-                                <form role="form" method="POST" action="{{ route('verify') }}" class="text-start">
+                                <form role="form" method="POST" action="{{ route('verify') }}" class="text-start" novalidate>
                                     @csrf
                                     <div class="input-group input-group-outline my-3">
                                         <label class="form-label">Email</label>

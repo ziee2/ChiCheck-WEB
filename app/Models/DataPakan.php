@@ -11,7 +11,7 @@ use App\controllers\RiwayatPrediksiController;
 class DataPakan extends Model
 {
     use HasFactory;
-    protected $fillable = ['stok', 'nama', 'created_at', 'user_id'];
+    protected $fillable = ['stok_pakan', 'nama', 'user_id'];
     protected $table = 'pakan_tabel';
     protected $primarykey = 'id';
 

@@ -9,7 +9,7 @@
                     <div class="col-12">
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                <div class="bg-gradient-warning shadow-warning border-radius-lg pt-4 pb-3">
                                     <h6 class="text-white text-capitalize ps-3">Scann Kotoran Ayam</h6>
                                 </div>
                             </div>
@@ -29,12 +29,12 @@
                                                     </p>
                                                 </div>
 
-                                                <form action="{{ route('predict') }}" method="post" enctype="multipart/form-data">
+                                                <form id="upload-form" action="{{ route('predict') }}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                                     <div class="mb-1 col-lg-8">
                                                         <input type="file" name="image" id="image-upload-input" style="display:none;" accept="image/*" >
-                                                        <label for="image-upload-input" class="btn btn-warning btn-lg text-white me-auto fw-bold">Upload Image</label>
+                                                        <label for="image-upload-input" class="btn btn-warning btn-lg text-white me-auto fw-bold">Unggah Gambar</label>
                                                     </div>
 
                                                     <div class="col-lg-12">
@@ -43,7 +43,7 @@
                                                             <div class="frame mx-auto" style="width: 500px; height: 350px; overflow: hidden; border-radius: 8px">
                                                                 <img class="" id="preview-image" alt="" style="width: 100%; height:100%; object-fit:cover;">
                                                             </div>
-                                                            <button class= "mt-4 btn btn-warning btn-lg text-white fw-bold" type="submit">Analyze Image</button>
+                                                            <button id="analyze-button" class= "mt-4 btn btn-warning btn-lg text-white fw-bold" type="submit">Analyze Image</button>
                                                             <a class="mt-4 btn btn-warning btn-lg text-white fw-bold" href=" {{ route('scan') }} ">
                                                                 <span class="ms-2 font-weight-bold text-white">Batal</span>
                                                             </a>
@@ -53,6 +53,25 @@
                                                 </div>
                                             </div>
                                                 
+
+                                    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body text-center">
+                                                    <div class="spinner-border text-primary" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                    <p class="mt-3">Sedang Melakukan Scanning...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                                <!-- Pop-up Loading -->
+                                                <!-- <div id="loading-popup" class="loading-popup" style="display: none;">
+                                                    <div class="loading-spinner"></div>
+                                                    <p class="loading-text">Analyzing Image...</p>
+                                                </div> -->
 
                                                 <script>
                                                     document.getElementById('image-upload-input').addEventListener('change', function(event){
@@ -65,11 +84,20 @@
                                                                 var previewImage = document.getElementById('preview-image');
                                                                 previewImage.src = e.target.result;
                                                                 document.getElementById('preview-container').style.display = 'block';
+
                                                             }
                                             
                                                             reader.readAsDataURL(file);
                                                         }
                                                     });
+
+                                                    document.getElementById('upload-form').addEventListener('submit', function() {
+                                                        var loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+                                                        loadingModal.show();
+                                                    });
+
+                                                    document.getElementById('preview-container').scrollIntoView({ behavior: 'smooth' });
+                                                    
                                                 </script>
                                             </div>
                                         </div>

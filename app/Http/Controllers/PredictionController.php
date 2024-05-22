@@ -47,7 +47,9 @@ class PredictionController extends Controller
                     ],
                 ]);
 
-                $prediction = Predictions::where('user_id', $userId)->latest()->first();
+                // $prediction = Predictions::where('user_id', $userId)->latest()->first();
+                $prediction = Predictions::where('user_id', $userId)->latest('id')->first();
+
                 // $prediction = Predictions::latest()->value('id');
 
                 // return view('pages.user-pages.hasil-scan',  ['prediction' => $prediction ]);

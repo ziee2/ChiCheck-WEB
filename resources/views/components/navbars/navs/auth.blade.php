@@ -17,7 +17,7 @@
                     <input type="text" class="form-control">
                 </div> -->
             </div>
-            <form method="POST" action="{{ route('logout') }}" class="d-none" id="logout-form">
+            <!-- <form method="POST" action="{{ route('logout') }}" class="d-none" id="logout-form">
                 @csrf
             </form>
             <ul class="navbar-nav  justify-content-end">
@@ -26,8 +26,8 @@
                         <i class="fa fa-user me-sm-1"></i>
                         <span class="d-sm-inline d-none" onclick="myFunction()">SignOut</span>
                     </a>
-                </li>   
-                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                </li>    -->
+                <!-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
                             <i class="sidenav-toggler-line"></i>
@@ -35,12 +35,12 @@
                             <i class="sidenav-toggler-line"></i>
                         </div>
                     </a>
-                </li>
-                <li class="nav-item px-3 d-flex align-items-center">
+                </li> -->
+                <!-- <li class="nav-item px-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0">
                         <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

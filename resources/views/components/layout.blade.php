@@ -11,6 +11,7 @@
     <title>
         ChiCheck || E5 TEAM
     </title>
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -45,6 +46,7 @@
     }
 
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->

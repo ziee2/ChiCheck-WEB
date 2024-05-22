@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ayam_tabel', function (Blueprint $table) {
+        Schema::create('kabupaten', function (Blueprint $table) {
             $table->id();
-            $table->float('stok_ayam');
-            $table->foreignId("user_id")->nullable()->constrained("users");
+            $table->foreignId('provinsi_id')->constrained("provinsi");
+            $table->string('nama');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ayam_tabel');
+        Schema::dropIfExists('kabupaten');
     }
 };

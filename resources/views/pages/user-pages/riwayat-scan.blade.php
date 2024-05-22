@@ -9,7 +9,7 @@
                     <div class="col-12">
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                <div  class="bg-gradient-warning shadow-warning border-radius-lg pt-4 pb-3">
                                     <h6 class="text-white text-capitalize ps-3">Riwayat Scann Kotoran Ayam</h6>
                                 </div>
                             </div>
@@ -17,23 +17,22 @@
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         <div class="container">
-                                            <div class="row justify-content-center flex-column flex-lg-row-reverse justify-between items-center py-6 text-center text-lg-right my-5">
+                                            <div class="row justify-content-center flex-column flex-lg-row-reverse justify-between items-center py-1 text-center text-lg-right my-1">
+                                            @if(isset($isEmpty) && $isEmpty)
+                                            <h5>Tidak ada data tersedia saat ini.</h5>
+                                            @else
                                                 @foreach($getAllPredictions as $predik)
-                                                        <div class="col-lg-6">
-                                                        <div class="row row-cols-1 row-cols-md-2 g-4">
-                                                            <div class="col">
-                                                                <div class="card">  
-                                                                    <img src="{{ $predik->img_url }}" class="card-img-top" alt="...">
-                                                                        <div class="card-body">
-                                                                            <h5 class="card-title">{{ $predik->penyakit }}</h5>
-                                                                            <p class="card-text">{{ $predik->solusi }}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                @endforeach
 
+                                                    <div class="card mb-5 col-lg-5 ms-5">
+                                                        <img style="width: 10rem; " src="{{ $predik->img_url }}" class="mt-3 rounded mx-auto d-block card-img-top" alt="...">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{{ $predik->penyakit }}</h5>
+                                                                <p class="card-text">{{ $predik->solusi }}</p>
+                                                                <!-- <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> -->
+                                                            </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                                 
                                             </div>
                                             </div>

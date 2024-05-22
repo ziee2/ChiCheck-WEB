@@ -11,7 +11,7 @@ use App\controllers\RiwayatPrediksiController;
 class DataTelur extends Model
 {
     use HasFactory;
-    protected $fillable = ['stok', 'created_at', 'user_id'];
+    protected $fillable = ['stok_telur', 'user_id'];
     protected $table = 'telur_tabel';
     protected $primarykey = 'id';
 

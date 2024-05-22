@@ -2,7 +2,7 @@
 
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-100"
-            style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
+            style="background-image: url('https://images.unsplash.com/photo-1471623817296-aa07ae5c9f47?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container my-auto">
                 <div class="row">
@@ -14,7 +14,30 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form role="form" method="POST" action="{{ route('password.update', ['token' => $token]) }}" class="text-start">
+                                <form role="form" method="POST" action="{{ route('password.update', ['token' => $token]) }}" class="text-start" novalidate>
+                                @if (session('status'))
+                                    <div class="row">
+                                        <div class="alert alert-success alert-dismissible text-white" role="alert">
+                                            <span class="text-sm">{{ Session::get('status') }}</span>
+                                            <button type="button" class="btn-close text-lg py-3 opacity-10"
+                                                data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if (Session::has('demo'))
+                                            <div class="row">
+                                                <div class="alert alert-danger alert-dismissible text-white" role="alert">
+                                                    <span class="text-sm">{{ Session::get('demo') }}</span>
+                                                    <button type="button" class="btn-close text-lg py-3 opacity-10"
+                                                        data-bs-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                    @endif
+
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
                                     <div class="input-group input-group-outline mb-3">
@@ -39,8 +62,7 @@
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                     <div class="text-center">
-                                        <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Change
-                                            password</button>
+                                        <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Reset Password</button>
                                     </div>
                                     <p class="mt-4 text-sm text-center">
                                         Don't have an account?

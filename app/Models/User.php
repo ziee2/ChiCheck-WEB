@@ -19,15 +19,18 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
-        'location',
-        'phone',
-        'about',
+        'image',
+        'email',
+        'no_hp',
+        'desa_id',
+        'kecamatan_id',
+        'kabupaten_id',
+        'provinsi_id',
         'password_confirmation',
         'status',
-        'role'
+        'level'
     ];
 
     /**
@@ -37,7 +40,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        // 'remember_token',
     ];
 
     /**
@@ -45,13 +48,54 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
     
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class);
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class);
+    }
+
+    public function kabupaten()
+    {
+        return $this->belongsTo(Kabupaten::class);
+    }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class);
+    }
+
+    // Accessor for location
+    public function getLocationAttribute()
+    {
+        $locationParts = [];
+
+        if ($this->desa) {
+            $locationParts[] = $this->desa->name;
+        }
+        if ($this->kecamatan) {
+            $locationParts[] = $this->kecamatan->name;
+        }
+        if ($this->kabupaten) {
+            $locationParts[] = $this->kabupaten->name;
+        }
+        if ($this->provinsi) {
+            $locationParts[] = $this->provinsi->name;
+        }
+
+        return implode(', ', $locationParts);
     }
 
 }

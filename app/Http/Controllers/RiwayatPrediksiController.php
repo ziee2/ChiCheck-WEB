@@ -8,18 +8,33 @@ use App\Models\Predictions;
 class RiwayatPrediksiController extends Controller
 {
     //
-    private $param;
+    // private $param;
     public function index(){
-        try{
-            $this->param['getAllPredictions'] = Predictions::all();
-            return view('pages.user-pages.riwayat-scan', $this->param);
-        
-        } catch(\Exception $e){
-            return redirect()->back()->withErrors('terjadi kesalahan : ', $e->getMessage());
-
-        }catch(\Exception | \Illuminate\Database\QueryException $e){
-                return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
-        }
-    }
+        try {
+            if (auth()->check()) {
+                $user_id = auth()->id();
+                $data['getAllPredictions'] = Predictions::where('user_id', $user_id)->get();
     
+                if ($data['getAllPredictions']->isEmpty()) {
+                    $data['isEmpty'] = true;
+                }
+    
+                return view('pages.user-pages.riwayat-scan', $data);
+            } else {
+                return redirect()->route('login')->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+
+        // try {
+        //     $data['getAllPredictions'] = Predictions::all();
+        //     if ($data['getAllPredictions']->isEmpty()) {
+        //         $data['isEmpty'] = true;
+        //     }
+        //     return view('pages.user-pages.riwayat-scan', $data);
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->withErrors('error','Terjadi kesalahan: ' . $e->getMessage());
+        // }
+    }
 }
