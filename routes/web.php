@@ -46,13 +46,7 @@ Route::get('/reset-password/{token}', function ($token) {
 	return view('sessions.password.reset', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
-
-// Route::get('/riwayat-scan', [RiwayatPrediksiController::class, 'showPredictions'])->name('riwayat.scan');
-
-
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
-// Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
-
 
 Route::group(['middleware' => 'auth'], function () {
 	

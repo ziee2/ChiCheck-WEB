@@ -19,8 +19,6 @@ class ProfileController extends Controller
 {
     public function create()
     {
-        
-
         return view('pages.profile');
     }
     public function viewedit()

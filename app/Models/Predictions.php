@@ -15,12 +15,8 @@ class Predictions extends Model
     protected $table = 'predictions';
     protected $primarykey = 'id';
 
-
-
     public function user() 
     {
         return $this->belongsTo(User::class);
     }
-
-
 }

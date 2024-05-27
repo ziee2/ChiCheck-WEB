@@ -18,52 +18,6 @@ class SessionsController extends Controller
         return view('sessions.create');
     }
 
-    // public function store()
-    // {
-    //     $attributes = request()->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required'
-    //     ],
-    //     [
-    //         'email.required' => 'Email harus diisi.',
-    //         'email.email' => 'Email harus dalam format yang benar.',
-    //         'password.required' => 'Password harus diisi.'
-    //     ]);
-    //     if (! auth()->attempt($attributes)) {
-    //         throw ValidationException::withMessages([
-    //             'email' => 'Mohon periksa kembali Email dan password Anda'
-    //         ]);
-    //     }
-
-    //         // Ambil pengguna yang sedang masuk
-    //     $user = auth()->user();
-
-    //     // Periksa status akun pengguna
-    //     if ($user->status === 'Active') {
-    //         // Periksa peran pengguna
-    //         if ($user->level === 'Admin') {
-    //             // Jika pengguna adalah admin, arahkan ke dashboard admin
-    //             return redirect()->route('dashboard-admin');
-    //         } elseif ($user->level === 'Owner') {
-    //             // Jika pengguna adalah user, arahkan ke dashboard user
-    //             return redirect()->route('dashboard');
-    //         } else {
-    //             // Jika peran tidak dikenali, lempar pengecualian
-    //             throw new \Exception('Unknown user role.');
-    //         }
-    //     } elseif ($user->status === 'Inactive') {
-    //         // Jika akun tidak aktif, logout pengguna dan beri pesan kesalahan
-    //         auth()->logout();
-    //         throw ValidationException::withMessages([
-    //             'email' => 'akun ada berstatus inactive, tolong hubungi admin'
-    //         ]);
-    //     } else {
-    //         // Jika status tidak dikenali, lempar pengecualiann
-    //         throw new \Exception('Status Tidak Dikenali.');
-    //     }
-    // }
-
-
     public function store()
     {
         $attributes = request()->validate([
@@ -156,7 +110,6 @@ class SessionsController extends Controller
     public function destroy()
     {
         auth()->logout();
-
         return redirect('/sign-in');
     }
 
