@@ -37,8 +37,6 @@ class DatabaseSeeder extends Seeder
          Desa::create(['nama' => 'Desa 1', 'kecamatan_id' => $kecamatan1->id]);
          Desa::create(['nama' => 'Desa 2', 'kecamatan_id' => $kecamatan2->id]);
          Desa::create(['nama' => 'Desa 3', 'kecamatan_id' => $kecamatan3->id]);
-
-
          
         }
 }

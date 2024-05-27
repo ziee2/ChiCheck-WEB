@@ -18,7 +18,9 @@
                         <div class="avatar avatar-xl position-relative">
                             <img src="{{ asset('storage/profile_pictures/' . Auth::user()->image) }}" alt="profile_image"
                                 class="w-100 border-radius-lg shadow-sm">
-                        </div>
+
+                            </div>
+                            <?php var_dump(Auth::user()->image)?>
                     </div>
                     <div class="col-auto my-auto">
                         <div class="h-100">

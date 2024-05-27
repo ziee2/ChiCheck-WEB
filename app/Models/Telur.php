@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\controllers\RiwayatPrediksiController;
 
-class DataPakan extends Model
+class Telur extends Model
 {
     use HasFactory;
-    protected $fillable = ['stok_pakan', 'nama', 'user_id'];
-    protected $table = 'pakan_tabel';
+    protected $fillable = ['stok_telur', 'user_id'];
+    protected $table = 'telur_tabel';
     protected $primarykey = 'id';
 
     public function user() 

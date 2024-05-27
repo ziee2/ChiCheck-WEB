@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DataAyam;
-use App\Models\DataPakan;
-use App\Models\DataTelur;
+use App\Models\Ayam;
+use App\Models\Pakan;
+use App\Models\Telur;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -37,7 +37,7 @@ class DashboardController extends Controller
     public function totalStokAyam($user_id)
     {
         try {
-            $totalStokAyam = DataAyam::where('user_id', $user_id)->sum('stok_ayam');
+            $totalStokAyam = Ayam::where('user_id', $user_id)->sum('stok_ayam');
             return $totalStokAyam;
         } catch (\Exception $e) {
             return 0; // Jika terjadi kesalahan, kembalikan 0 atau penanganan kesalahan sesuai kebutuhan.
@@ -47,7 +47,7 @@ class DashboardController extends Controller
     public function totalStokTelur($user_id)
     {
         try {
-            $totalStokTelur = DataTelur::where('user_id', $user_id)->sum('stok_telur');
+            $totalStokTelur = Telur::where('user_id', $user_id)->sum('stok_telur');
             return $totalStokTelur;
         } catch (\Exception $e) {
             return 0; // Jika terjadi kesalahan, kembalikan 0 atau penanganan kesalahan sesuai kebutuhan.
@@ -57,7 +57,7 @@ class DashboardController extends Controller
     public function totalStokPakan($user_id)
     {
         try {
-            $totalStokPakan = DataPakan::where('user_id', $user_id)->sum('stok_pakan');
+            $totalStokPakan = Pakan::where('user_id', $user_id)->sum('stok_pakan');
             return $totalStokPakan;
         } catch (\Exception $e) {
             return 0; // Jika terjadi kesalahan, kembalikan 0 atau penanganan kesalahan sesuai kebutuhan.
@@ -69,7 +69,7 @@ class DashboardController extends Controller
         try {
             $startOfWeek = Carbon::now()->startOfWeek();
             $endOfWeek = Carbon::now()->endOfWeek();
-            $dailyEggData = DataTelur::where('user_id', $user_id)
+            $dailyEggData = Telur::where('user_id', $user_id)
                                      ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
                                      ->get();
 
@@ -94,7 +94,7 @@ class DashboardController extends Controller
     {
         try {
             $currentYear = Carbon::now()->year;
-            $monthlyEggData = DataTelur::where('user_id', $user_id)
+            $monthlyEggData = Telur::where('user_id', $user_id)
                                        ->whereYear('created_at', $currentYear)
                                        ->get();
 
@@ -118,7 +118,7 @@ class DashboardController extends Controller
     {
         try {
             $today = Carbon::now()->format('Y-m-d');
-            $lastSevenDays = DataTelur::where('user_id', $user_id)
+            $lastSevenDays = Telur::where('user_id', $user_id)
                                       ->whereDate('created_at', '>=', Carbon::now()->subDays(7)->format('Y-m-d'))
                                       ->whereDate('created_at', '<=', $today)
                                       ->orderBy('created_at', 'asc')

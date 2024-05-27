@@ -32,7 +32,6 @@ Route::get('/', function () {
     return redirect('sign-in');
 })->middleware('guest');
 
-// Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
@@ -93,38 +92,22 @@ Route::group(['middleware' => ['auth', 'checkRole:Admin']], function () {
 		# user
 Route::group(['middleware' => ['auth', 'checkRole:Owner']], function () {
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-	Route::get('scan', function () {
-		return view('pages.user-pages.scan');
-	})->name('scan');
+	Route::get('/scan', [PredictionController::class, 'index'])->name('scan');
+	// Route::get('scan', function () {
+	// 	return view('pages.user-pages.scan');
+	// })->name('scan');
 	Route::post('/predict', [PredictionController::class, 'predict'])->name('predict');
 	Route::get('/riwayat-scan', [RiwayatPrediksiController::class, 'index'])->name('riwayat-scan');
-			// Route::get('/data-ayam', [DataAyamController::class, 'index'])->name('data-ayam');
-			// Route::get('/data-pakan', [DataPakanController::class, 'index'])->name('data-pakan');
-			// Route::get('/data-telur', [DataTelurController::class, 'index'])->name('data-telur');
-			// Route::get('/riwayat-pendataan', [RiwayatPendataanController::class, 'index'])->name('riwayat-pendataan');
-			// Route::resource('dataayam', DataAyamController::class);
-			// Route::get('data-ayam', function () {
-				// 	return view('pages.user-pages.data-ayam');
-				// })->name('data-ayam');
-		// Route::get('/data-ayam', [DataAyamController::class, 'index'])->name('dataAyam.index');	
-		// Route::post('/data-ayam', [DataAyamController::class, 'store'])->name('dataAyam.store');
-		// Route::put('/data-ayam/{dataAyam}', [DataAyamController::class, 'update'])->name('dataAyam.update');
 	Route::get('/data-ayam', [DataAyamController::class, 'index'])->name('data-ayam');
-	// Route::post('/data-ayam/{id}/tambah-stok', [DataAyamController::class, 'tambahStok'])->name('data-ayam.tambah-stok');
 	Route::put('/data-ayam/{id}/update', [DataAyamController::class, 'update'])->name('data-ayam.update');
-	// Route::delete('/data-ayam/{id}/hapus', [DataAyamController::class, 'hapusStok'])->name('data-ayam.hapus-stok');
 	Route::post('/data-ayam/tambah-kandang', [DataAyamController::class, 'tambahKandang'])->name('data-ayam.tambah-kandang');
 	
 	Route::get('/data-pakan', [DataPakanController::class, 'index'])->name('data-pakan');
-	// Route::post('/data-pakan/{id}/tambah-stok', [DataPakanController::class, 'tambahStok'])->name('data-pakan.tambah-stok');
 	Route::put('/data-pakan/{id}/update', [DataPakanController::class, 'update'])->name('data-pakan.update');
-	// Route::delete('/data-pakan/{id}/hapus', [DataPakanController::class, 'hapusStok'])->name('data-pakan.hapus-stok');
 	Route::post('/data-pakan/tambah-pakan', [DataPakanController::class, 'tambahpakan'])->name('data-pakan.tambah-pakan');
 	
 	Route::get('/data-telur', [DataTelurController::class, 'index'])->name('data-telur');
-	// Route::post('/data-telur/{id}/tambah-stok', [DataTelurController::class, 'tambahStok'])->name('data-telur.tambah-stok');
 	Route::put('/data-telur/{id}/update', [DataTelurController::class, 'update'])->name('data-telur.update');
-	// Route::delete('/data-telur/{id}/hapus', [DataTelurController::class, 'hapusStok'])->name('data-telur.hapus-stok');
 	Route::post('/data-telur/tambah-telur', [DataTelurController::class, 'tambahtelur'])->name('data-telur.tambah-telur');
 	
 	

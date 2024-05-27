@@ -95,43 +95,35 @@
                                                     <!-- <i class="material-icons">edit</i> -->
                                                     <div class="ripple-container">Ubah Data</div>
                                                 </a>
-                                                <!-- <form action="{{ route('data-telur.hapus-stok', ['id' => $telur->id]) }}" id="hapus-form" method="POST" style="display: inline;" >
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-link" data-original-title="Hapus">
-                                                        <div class="ripple-container">Hapus</div>
-                                                    </button>
-                                                </form> -->
                                             </td>
                                             
                                         </tr>
 
-<div class="modal fade" id="editStokModal{{ $telur->id }}" tabindex="-1" aria-labelledby="editStokModalLabel{{ $telur->id }}" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editStokModalLabel{{ $telur->id }}">Edit </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('data-telur.update', ['id' => $telur->id]) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="stok_telur" class="form-label">Stok telur</label>
-                        <input value="{{ $telur->stok_telur }}" type="number" class="form-control" id="stok_telur" name="stok_telur" required pattern="\d*" title="Please enter a valid number">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
+                                            <div class="modal fade" id="editStokModal{{ $telur->id }}" tabindex="-1" aria-labelledby="editStokModalLabel{{ $telur->id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editStokModalLabel{{ $telur->id }}">Edit </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="{{ route('data-telur.update', ['id' => $telur->id]) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="stok_telur" class="form-label">Stok telur</label>
+                                                                    <input value="{{ $telur->stok_telur }}" type="number" class="form-control" id="stok_telur" name="stok_telur" required pattern="\d*" title="Please enter a valid number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                         @endif
                                     </tbody>

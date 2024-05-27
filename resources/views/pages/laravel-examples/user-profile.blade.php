@@ -6,16 +6,18 @@
         <x-navbars.navs.auth titlePage='User Profile'></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
-            <!-- <div class="page-header min-height-300 border-radius-xl mt-4"
-                style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-                <span class="mask  bg-gradient-primary  opacity-6"></span>
-            </div> -->
             <div class="mt-3 card card-body mx-3 mx-md-4 mt-n6">
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
+                        @if(Auth::user()->image)
                             <img src="{{ asset('storage/profile_pictures/' . Auth::user()->image) }}" alt="profile_image"
                                 class="w-100 border-radius-lg shadow-sm">
+                        @else
+                            <p>Profile picture not found.</p>
+                        @endif
+                            <!-- <img src="{{ asset('storage/profile_pictures/' . Auth::user()->image) }}" alt="profile_image"
+                                class="w-100 border-radius-lg shadow-sm"> -->
                         </div>
                     </div>
                     <div class="col-auto my-auto">
@@ -215,7 +217,7 @@
                         $('#kabupaten_id').empty();
                         $('#kabupaten_id').append('<option value="">Pilih kabupaten</option>');
                         $.each(data, function(key, value) {
-                            $('#kabupaten_id').append('<option value="'+ key +'">'+ value.nama +'</option>');
+                            $('#kabupaten_id').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
                         });
                     }
                 });
@@ -237,13 +239,13 @@
                         $('#kecamatan_id').empty();
                         $('#kecamatan_id').append('<option value="">Pilih kecamatan</option>');
                         $.each(data, function(key, value) {
-                            $('#kecamatan_id').append('<option value="'+ key +'">'+ value.nama +'</option>');
+                            $('#kecamatan_id').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
                         });
                     }
                 });
             } else {
                 $('#kecamatan_id').empty();
-                $('#kecamatan_id').append('<option value="">Pilih 0kecamatan</option>');
+                $('#kecamatan_id').append('<option value="">Pilih kecamatan</option>');
             }
         });
 
@@ -259,7 +261,7 @@
                         $('#desa_id').empty();
                         $('#desa_id').append('<option value="">Pilih Desa</option>');
                         $.each(data, function(key, value) {
-                            $('#desa_id').append('<option value="'+ key +'">'+ value.nama +'</option>');
+                            $('#desa_id').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
                         });
                     }
                 });

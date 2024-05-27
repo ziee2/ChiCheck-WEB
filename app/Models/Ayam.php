@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\controllers\RiwayatPrediksiController;
 
-class DataAyam extends Model
+class Ayam extends Model
 {
     use HasFactory;
     protected $fillable = ['kandang', 'stok_ayam', 'created_at', 'user_id'];

@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class kecamatan extends Model
+class Kecamatan extends Model
 {
     use HasFactory;
     protected $fillable = ['nama','kabupaten_id'];
     protected $table = 'kecamatan';
     protected $primarykey = 'id';
 
-    public function kabupaten()
+    public function Kabupaten()
     {
-        return $this->belongsTo(kabupaten::class);
+        return $this->belongsTo(Kabupaten::class);
     }
 
     public function desa()
     {
-        return $this->hasMany(desa::class);
+        return $this->hasMany(Desa::class);
     
     }
     public function user() 

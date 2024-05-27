@@ -30,7 +30,9 @@ class User extends Authenticatable
         'provinsi_id',
         'password_confirmation',
         'status',
-        'level'
+        'level',
+        'terakhir_login',
+        
     ];
 
     /**
@@ -80,22 +82,22 @@ class User extends Authenticatable
     // Accessor for location
     public function getLocationAttribute()
     {
-        $locationParts = [];
+        $Alamat = [];
 
         if ($this->desa) {
-            $locationParts[] = $this->desa->name;
+            $Alamat[] = $this->desa->nama;
         }
         if ($this->kecamatan) {
-            $locationParts[] = $this->kecamatan->name;
+            $Alamat[] = $this->kecamatan->nama;
         }
         if ($this->kabupaten) {
-            $locationParts[] = $this->kabupaten->name;
+            $Alamat[] = $this->kabupaten->nama;
         }
         if ($this->provinsi) {
-            $locationParts[] = $this->provinsi->name;
+            $Alamat[] = $this->provinsi->nama;
         }
 
-        return implode(', ', $locationParts);
+        return implode(', ', $Alamat);
     }
 
 }

@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Events\PasswordReset;
 
-use App\Models\desa;
-use App\Models\kecamatan;
-use App\Models\kabupaten;
-use App\Models\provinsi;
+use App\Models\Desa;
+use App\Models\Kecamatan;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 
 
 
@@ -21,17 +21,12 @@ class ProfileController extends Controller
     {
         
 
-    //     // $desas = Desa::all();
-    //     // $kecamatans = Kecamatan::all();
-    //     // $kabupatens = Kabupaten::all();
-    //     // $provinsis = Provinsi::all();
-
         return view('pages.profile');
-    //     // return view('pages.profile', compact('desas', 'kecamatans', 'kabupatens', 'provinsis'));
     }
     public function viewedit()
     {
         try {
+
             $data['provinsis'] = Provinsi::all();
             if ($data['provinsis']->isEmpty()) {
                 $data['isEmpty'] = true;
@@ -52,19 +47,30 @@ class ProfileController extends Controller
             'username' => 'required',
             'no_hp' => 'required|max:13',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'provinsi_id' => 'required|exists:provinsis,id',
-            'kabupaten_id' => 'required|exists:kabupatens,id',
-            'kecamatan_id' => 'required|exists:kecamatans,id',
-            'desa_id' => 'required|exists:desas,id',
+            'provinsi_id' => 'required|exists:provinsi,id',
+            'kabupaten_id' => 'required|exists:kabupaten,id',
+            'kecamatan_id' => 'required|exists:kecamatan,id',
+            'desa_id' => 'required|exists:desa,id',
+        ],[
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Email harus dalam format yang benar.',
+            'username.required' => 'username harus diisi',
+            'no_hp.required' => 'nomor handphone harus diisi',
+            'image.image' => 'image tidak valid',
+            'provinsi_id.required' => 'provinsi harus diisi',
+            'kabupaten_id.required' => 'kabupaten harus diisi',
+            'kecamatan_id.required' => 'kecamatan harus diisi',
+            'desa_id.required' => 'desa harus diisi',
+
         ]);
 
         // Proses unggah foto profil
         if ($request->hasFile('image')) {
             if ($user->image) {
-                Storage::delete('public/profile_pictures/' . $user->image);
+                Storage::delete('public/storage/profile_pictures/' . $user->image);
             }
             $filename = time() . '.' . $request->image->extension();
-            $request->image->storeAs('public/profile_pictures', $filename);
+            $request->image->storeAs('public/storage/profile_pictures', $filename);
             $attributes['image'] = $filename;
         }
 
@@ -74,7 +80,7 @@ class ProfileController extends Controller
         // $kabupaten = Kabupaten::firstOrCreate(['nama' => $request->kabupaten]);
         // $provinsi = Provinsi::firstOrCreate(['nama' => $request->provinsi]);
 
-        // // Set _id dari relasi ke attributes
+        // Set _id dari relasi ke attributes
         // $attributes['desa_id'] = $desa->id;
         // $attributes['kecamatan_id'] = $kecamatan->id;
         // $attributes['kabupaten_id'] = $kabupaten->id;
@@ -106,28 +112,12 @@ class ProfileController extends Controller
             return back()->withErrors(['current_password' => 'Password saat ini salah.']);
         }
 
-        $user->password = Hash::make($request->password); // Meng-hash password baru sebelum disimpan
+        $user->password = $request->password; 
         $user->save();
 
         event(new PasswordReset($user));
 
-        // $request->validate([
-        //     'current_password' => 'required',
-        //     'new_password' => 'required|min:8',
-        //     'confirm_password' => 'required|same:new_password',
-        // ]);
-
-        // $user = auth()->user();
-
-        // if (!Hash::check($request->current_password, $user->password)) {
-        //     return back()->withErrors(['current_password' => 'The current password is incorrect.']);
-        // }
-
-        // $user->update([
-        //     'password' => Hash::make($request->new_password),
-        // ]);
         return back()->withStatus('password berhasil diubah.');
-        // return redirect()->route('user-profile')->withStatus('Password has been changed successfully.');
     }
 
 
@@ -148,17 +138,17 @@ class ProfileController extends Controller
     //     return response()->json($desas);
     // }
     public function getKabupatens($provinsi_id) {
-        $kabupatens = kabupaten::where('provinsi_id', $provinsi_id)->get();
+        $kabupatens = Kabupaten::where('provinsi_id', $provinsi_id)->get();
         return response()->json($kabupatens);
     }
     
     public function getKecamatans($kabupaten_id) {
-        $kecamatans = kecamatan::where('kabupaten_id', $kabupaten_id)->get();
+        $kecamatans = Kecamatan::where('kabupaten_id', $kabupaten_id)->get();
         return response()->json($kecamatans);
     }
     
     public function getDesas($kecamatan_id) {
-        $desas = desa::where('kecamatan_id', $kecamatan_id)->get();
+        $desas = Desa::where('kecamatan_id', $kecamatan_id)->get();
         return response()->json($desas);
     }
     

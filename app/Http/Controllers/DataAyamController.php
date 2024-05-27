@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DataAyam;
+use App\Models\Ayam;
 
 class DataAyamController extends Controller
 {
@@ -13,7 +13,7 @@ class DataAyamController extends Controller
         try {
             if (auth()->check()) {
                 $user_id = auth()->id();
-                $data['getAlldataAyam'] = DataAyam::where('user_id', $user_id)->get();
+                $data['getAlldataAyam'] = Ayam::where('user_id', $user_id)->get();
     
                 if ($data['getAlldataAyam']->isEmpty()) {
                     $data['isEmpty'] = true;
@@ -45,7 +45,7 @@ class DataAyamController extends Controller
         ]);
 
         try {
-            $ayam = DataAyam::findOrFail($id);
+            $ayam = Ayam::findOrFail($id);
             $ayam->update([
                 'kandang' => $request->kandang,
                 'stok_ayam' => $request->stok_ayam,
@@ -73,7 +73,7 @@ class DataAyamController extends Controller
         ]);
 
         try {
-            DataAyam::create($request->all());
+            Ayam::create($request->all());
             return redirect()->back()->with('status', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('error','Terjadi kesalahan: ' . $e->getMessage());

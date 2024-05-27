@@ -102,21 +102,9 @@
                                             
 
                                             <td class="align-middle text-center">
-                                                <!-- <a rel="tooltip" class="btn btn-success btn-link" href="#" data-original-title="Tambah Stok" data-bs-toggle="modal" data-bs-target="#tambahModal{{ $pakan->id }}">
-                                                    <!-- <i class="material-icons">edit</i> -->
-                                                    <!-- <div class="ripple-container">Tambah stok</div> -->
-                                                <!-- </a> --> 
                                                 <a rel="tooltip" class="btn btn-success btn-link" href="#" data-original-title="Edit Stok" data-bs-toggle="modal" data-bs-target="#editStokModal{{ $pakan->id }}">
-                                                    <!-- <i class="material-icons">edit</i> -->
                                                     <div class="ripple-container">Ubah Data</div>
                                                 </a>
-                                                <!-- <form action="{{ route('data-pakan.hapus-stok', ['id' => $pakan->id]) }}" id="hapus-form" method="POST" style="display: inline;" >
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-link" data-original-title="Hapus">
-                                                        <div class="ripple-container">Hapus</div>
-                                                    </button>
-                                                </form> -->
                                             </td>
 
                                         </tr>

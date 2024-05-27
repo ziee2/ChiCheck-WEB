@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DataPakan;
+use App\Models\Pakan;
 
 class DataPakanController extends Controller
 {
@@ -12,7 +12,7 @@ class DataPakanController extends Controller
         try {
             if (auth()->check()) {
                 $user_id = auth()->id();
-                $data['getAlldataPakan'] = DataPakan::where('user_id', $user_id)->get();
+                $data['getAlldataPakan'] = Pakan::where('user_id', $user_id)->get();
     
                 if ($data['getAlldataPakan']->isEmpty()) {
                     $data['isEmpty'] = true;
@@ -44,7 +44,7 @@ class DataPakanController extends Controller
         ]);
 
         try {
-            $pakan = DataPakan::findOrFail($id);
+            $pakan = Pakan::findOrFail($id);
             $pakan->update([
                 'nama' => $request->nama,
                 'stok_pakan' => $request->stok_pakan,
@@ -72,7 +72,7 @@ class DataPakanController extends Controller
         ]);
 
         try {
-            DataPakan::create($request->all());
+            Pakan::create($request->all());
             return redirect()->back()->with('status', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('error', 'Terjadi kesalahan: ' . $e->getMessage());

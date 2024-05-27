@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DataTelur;
+use App\Models\Telur;
 
 
 class DataTelurController extends Controller
@@ -14,7 +14,7 @@ class DataTelurController extends Controller
         try {
             if (auth()->check()) {
                 $user_id = auth()->id();
-                $data['getAlldataTelur'] = DataTelur::where('user_id', $user_id)->get();
+                $data['getAlldataTelur'] = Telur::where('user_id', $user_id)->get();
     
                 if ($data['getAlldataTelur']->isEmpty()) {
                     $data['isEmpty'] = true;
@@ -46,7 +46,7 @@ class DataTelurController extends Controller
         ]);
 
         try {
-            $telur = DataTelur::findOrFail($id);
+            $telur = Telur::findOrFail($id);
             $telur->update([
                 'stok_telur' => $request->stok_telur,
                 'user_id' => $request->user_id,
@@ -71,7 +71,7 @@ class DataTelurController extends Controller
         ]);
 
         try {
-            DataTelur::create($request->all());
+            Telur::create($request->all());
             return redirect()->back()->with('status', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('error', 'Terjadi kesalahan: ' . $e->getMessage());

@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Predictions;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 
 class PredictionController extends Controller
 {
+    
+    public function index()
+    {
+        return view('pages.user-pages.scan');
+    }
 
     // Validasi request
     public function predict(Request $request)
@@ -47,19 +52,22 @@ class PredictionController extends Controller
                     ],
                 ]);
 
-                // $prediction = Predictions::where('user_id', $userId)->latest()->first();
                 $prediction = Predictions::where('user_id', $userId)->latest('id')->first();
 
-                // $prediction = Predictions::latest()->value('id');
-
-                // return view('pages.user-pages.hasil-scan',  ['prediction' => $prediction ]);
-                return view('pages.user-pages.hasil-scan',  ['prediction' => $prediction, 'img_url' => $prediction->img_url, 'penyakit' => $prediction->penyakit, 'deskripsi' => $prediction->deskripsi, 'solusi' => $prediction->solusi, ]);
+                return view('pages.user-pages.hasil-scan',  [
+                    'prediction' => $prediction, 
+                    'img_url' => $prediction->img_url, 
+                    'penyakit' => $prediction->penyakit, 
+                    'deskripsi' => $prediction->deskripsi, 
+                    'solusi' => $prediction->solusi, ]);
                 
             }catch (\Exception $e) {
-                return view('pages.user-pages.scan', ['error' => $e-> getMessage()]);
+                return redirect()->route('scan')->with('error', $e->getMessage());
+                // return view('pages.user-pages.scan', ['error' => $e-> getMessage()]);
             }
         }
-        return view('pages.user-pages.scan', ['error' => 'invalid image file']);
+        return redirect()->route('scan')->with('error', 'File Tidak Valid');
+        // return view('pages.user-pages.scan', ['error' => 'invalid image file']);
         // return view('pages.user-pages.scan')->withErrors(['error' => $e->getMessage()]);
     }
 

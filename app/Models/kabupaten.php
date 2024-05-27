@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class kabupaten extends Model
+class Kabupaten extends Model
 {
     use HasFactory;
     protected $fillable = ['nama', 'provinsi_id'];
@@ -13,17 +13,17 @@ class kabupaten extends Model
     protected $primarykey = 'id';
 
     
-    public function provinsi()
+    public function Provinsi()
     {
-        return $this->belongsTo(provinsi::class);
+        return $this->belongsTo(Provinsi::class);
     }
 
-    public function kecamatan()
+    public function Kecamatan()
     {
-        return $this->hasMany(kecamatan::class);
+        return $this->hasMany(Kecamatan::class);
     
     }
-    public function user() 
+    public function User() 
     {
         return $this->belongsTo(User::class);
     }
