@@ -30,8 +30,20 @@
                                 });
                             </script>
                             @endif
-
-
+                            @if ($errors->any())
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                                    errorModal.show();
+                                });
+                            </script>
+                            <!-- <div class="alert alert-danger alert-dismissible text-white mt-2" role="alert">
+                                <span class="text-sm">{{ $errors->first() }}</span>
+                                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div> -->
+                            @endif
                                 <div class="card-body px-0 pb-2">
                                     <div class="table-responsive p-0">
                                         <table class="table align-items-center mb-0">
@@ -53,7 +65,7 @@
                                                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                                         <div class="mb-1 col-lg-8">
                                                             <input type="file" name="image" id="image-upload-input" style="display:none;" accept="image/*" >
-                                                            <label for="image-upload-input" class="btn btn-warning btn-lg text-white me-auto fw-bold">Unggah Gambar</label>
+                                                            <label for="image-upload-input" class="btn btn-warning btn-lg text-white me-auto fw-bold">Unggah Foto</label>
                                                         </div>
 
                                                         <div class="col-lg-12">
@@ -97,7 +109,19 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <!-- Alert massage -->
+                                    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body text-center">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ $errors->first() }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                                     <script>
                                                         document.getElementById('image-upload-input').addEventListener('change', function(event){
                                                             var fileInput = event.target;
@@ -122,6 +146,7 @@
                                                         });
 
                                                         document.getElementById('preview-container').scrollIntoView({ behavior: 'smooth' });
+
                                                         
                                                     </script>
                                                 </div>

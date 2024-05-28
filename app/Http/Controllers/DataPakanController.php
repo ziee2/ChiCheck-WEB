@@ -38,7 +38,7 @@ class DataPakanController extends Controller
         ],
         [
             'nama.required' => 'nama Harus diisi.',
-            'stok_pakan.required' => 'Stok Pakan Harus diisi.',
+            'stok_pakan.required' => 'Harap mengisi stok terlebih dahulu',
             'stok_pakan.numeric' => 'Stok Pakan Harus Berisi Angka.',
             'user_id.required' => 'ID Pengguna harus diisi.',
         ]);
@@ -66,7 +66,7 @@ class DataPakanController extends Controller
         ],
         [
             'nama.required' => 'nama Harus diisi.',
-            'stok_pakan.required' => 'Stok Pakan Harus diisi.',
+            'stok_pakan.required' => 'Harap mengisi stok terlebih dahulu.',
             'stok_pakan.numeric' => 'Stok Pakan Harus Berisi Angka.',
             'user_id.required' => 'ID Pengguna harus diisi.',
         ]);

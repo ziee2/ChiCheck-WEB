@@ -63,12 +63,21 @@ class ProfileController extends Controller
         ]);
 
         // Proses unggah foto profil
+        // if ($request->hasFile('image')) {
+        //     if ($user->image) {
+        //         Storage::delete('public/storage/profile_pictures/' . $user->image);
+        //     }
+        //     $filename = time() . '.' . $request->image->extension();
+        //     $request->image->storeAs('public/storage/profile_pictures', $filename);
+        //     $attributes['image'] = $filename;
+        // }
+
         if ($request->hasFile('image')) {
             if ($user->image) {
-                Storage::delete('public/storage/profile_pictures/' . $user->image);
+                Storage::disk('public')->delete('profile_pictures/' . $user->image);
             }
-            $filename = time() . '.' . $request->image->extension();
-            $request->image->storeAs('public/storage/profile_pictures', $filename);
+            $filename = time() . '.' . $request->image->getClientOriginalExtension();
+            $path = $request->image->storeAs('profile_pictures', $filename, 'public');
             $attributes['image'] = $filename;
         }
 

@@ -43,6 +43,11 @@ class DataTelurController extends Controller
         $request->validate([
             'stok_telur' => 'required|numeric|min:1',
             'user_id' => 'required',
+        ],
+        [
+            'stok_telur.required' => 'Harap mengisi data terlebih dahulu.',
+            'stok_telur.numeric' => 'Stok telur Harus Berisi Angka.',
+            'user_id.required' => 'ID Pengguna harus diisi.',
         ]);
 
         try {
@@ -65,7 +70,7 @@ class DataTelurController extends Controller
             'user_id' => 'required',
         ],
         [
-            'stok_telur.required' => 'Stok telur Harus diisi.',
+            'stok_telur.required' => 'Harap mengisi data terlebih dahulu.',
             'stok_telur.numeric' => 'Stok telur Harus Berisi Angka.',
             'user_id.required' => 'ID Pengguna harus diisi.',
         ]);

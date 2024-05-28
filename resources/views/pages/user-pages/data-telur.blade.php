@@ -104,7 +104,7 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editStokModalLabel{{ $telur->id }}">Edit </h5>
+                                                            <h5 class="modal-title" id="editStokModalLabel{{ $telur->id }}">Ubah Data Telur</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <form action="{{ route('data-telur.update', ['id' => $telur->id]) }}" method="POST">
@@ -114,7 +114,10 @@
                                                             <div class="modal-body">
                                                                 <div class="mb-3">
                                                                     <label for="stok_telur" class="form-label">Stok telur</label>
-                                                                    <input value="{{ $telur->stok_telur }}" type="number" class="form-control" id="stok_telur" name="stok_telur" required pattern="\d*" title="Please enter a valid number">
+                                                                    <input value="{{ $telur->stok_telur }}" type="number" class="form-control" id="stok_telur" name="stok_telur"  pattern="\d*" title="Please enter a valid number">
+                                                                    @error('stok_telur') 
+                                                                    <p class='text-danger inputerror'>{{ $message }} </p>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -142,7 +145,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="telurModalLabel">Tambah Kandang</h5>
+                <h5 class="modal-title" id="telurModalLabel">Tambah Telur</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ route('data-telur.tambah-telur') }}" method="POST">
@@ -152,7 +155,10 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="stok_telur" class="form-label">Stok Telur</label>
-                        <input type="number" class="form-control" id="stok_telur" name="stok_telur" required pattern="\d*" title="Please enter a valid number">
+                        <input type="number" class="form-control" id="stok_telur" name="stok_telur"  pattern="\d*" title="Please enter a valid number">
+                        @error('stok_telur') 
+                        <p class='text-danger inputerror'>{{ $message }} </p>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">

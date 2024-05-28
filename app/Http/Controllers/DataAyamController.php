@@ -52,7 +52,7 @@ class DataAyamController extends Controller
                 'user_id' => $request->user_id,
             ]);
 
-            return redirect()->back()->with('status', 'Data berhasil dirubah');
+            return redirect()->back()->with('status', 'Data berhasil diubah');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('error','Terjadi kesalahan: ' . $e->getMessage());
         }

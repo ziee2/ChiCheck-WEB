@@ -21,15 +21,6 @@ class HasilPrediksiController extends Controller
 
         }catch(\Exception | \Illuminate\Database\QueryException $e){
                 return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
-        }
-
-        // $latestPrediction = predictions::latest()->first();
-
-        // if ($latestPrediction) {
-        //     return view('pages.user-pages.hasil-prediksi', compact('latestPrediction'));
-        // } else {
-        //     return view('pages.user-pages.hasil-prediksi', ['latestPrediction' => null]);
-        // }
-    
+        } 
     }
 }

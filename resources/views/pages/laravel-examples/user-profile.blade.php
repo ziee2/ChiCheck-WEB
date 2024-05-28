@@ -64,7 +64,20 @@
                                     </div>
                                 </div>
                                 @endif
-                                
+                        @if ($errors->any())
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    var errorModal = new bootstrap.Modal(document.getElementById('messageModal'));
+                                    errorModal.show();
+                                });
+                            </script>
+                            <!-- <div class="alert alert-danger alert-dismissible text-white mt-2" role="alert">
+                                <span class="text-sm">{{ $errors->first() }}</span>
+                                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div> -->
+                        @endif
                         <!-- @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -195,6 +208,18 @@
                     </div>
                 </div>
 
+
+                <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <div class="alert alert-danger" role="alert">
+                                    {{ $errors->first() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
         </div>
         <x-footers.auth></x-footers.auth>

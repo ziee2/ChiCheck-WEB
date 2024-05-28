@@ -70,8 +70,8 @@ class DashboardController extends Controller
             $startOfWeek = Carbon::now()->startOfWeek();
             $endOfWeek = Carbon::now()->endOfWeek();
             $dailyEggData = Telur::where('user_id', $user_id)
-                                     ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
-                                     ->get();
+                                    ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                                    ->get();
 
             $labels = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
             $data = [];

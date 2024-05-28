@@ -5,7 +5,7 @@
         </div>
     </div>
     <main class="main-content mt-0">
-        <div class="page-header align-items-start min-vh-100" 
+        <div class="page-header align-items-start min-vh-100  mx-auto " 
             style="background-image: url('https://images.unsplash.com/photo-1471623817296-aa07ae5c9f47?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
             <span class="mask bg-gradient-dark opacity-1"></span>
             <div class="container mt-6">
@@ -13,13 +13,13 @@
                     <div class="col-lg-10 col-md-12 col-12 mx-auto d-flex justify-content-between align-items-center" 
                         style="background: #fff; border-radius: 10px; padding: 20px;">
                         <!-- Login Form -->
-                        <div class="card z-index-0 fadeIn3 fadeInBottom w-50 me-2">
+                        <div class=" z-index-0 fadeIn3 fadeInBottom w-50 me-2 mt-7">
                             <div class="card-header p-0 position-relative mt-n8 mx-5 z-index-2">
                                 <div class="bg-gradient-warning shadow-warning border-radius-lg py-3 pe-1">
                                     <h4 class="text-white font-weight-bolder text-center m-auto"><span class="fs-2">SIGN-IN</span><span class="fs-6 ms-3">Akun milikmu</span></h4>
                                 </div>
                             </div>
-                            <div class="card-body mt-5">
+                            <div class="card-body mt-5 mx-5">
                                 <form role="form" method="POST" action="{{ route('login') }}" class="text-start" novalidate>
                                     @csrf
                                     @if (Session::has('status'))
@@ -38,46 +38,45 @@
                                     @error('email')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
-                                    <div class="input-group input-group-outline mt-3">
+                                    <div class="input-group input-group-outline mt-3 mb-3">
                                         <label class="form-label">Password</label>
                                         <input type="password" class="form-control" name="password">
                                     </div>
                                     @error('password')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
-                                    <div class="text-center">
-                                        <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Login</button>
+                                    <div class="text-center mt-2">
+                                        <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2 font-weight-bolder py-2">Login</button>
                                     </div>
                                     <p class="mt-4 text-sm text-center">
                                         Belum memiliki akun? 
-                                        <a href="{{ route('register') }}" class="text-warning text-gradient font-weight-bold">Sign Up</a>
+                                        <a href="{{ route('register') }}" class="text-danger text-gradient font-weight-bold">Sign Up</a>
                                     </p>
                                     <p class="text-sm text-center">
                                         Lupa Password? Atur ulang passwordmu 
-                                        <a href="{{ route('verify') }}" class="text-warning text-gradient font-weight-bold">Disini</a>
+                                        <a href="{{ route('verify') }}" class="text-danger text-gradient font-weight-bold">Disini</a>
                                     </p>
                                 </form>
                             </div>
                         </div>
                         <!-- Description Section -->
-                        <div class="card z-index-0 fadeIn3 fadeInBottom w-50 ms-2">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="z-index-0 fadeIn3 fadeInBottom w-50 ms-2">
+                            <div class="card-header p-0 position-relative mt-n5 mx-4 z-index-2">
                                 <div class="bg-gradient-warning shadow-warning border-radius-lg py-3 pe-1">
-                                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Tentang</h4>
-                                    <p class="text-white text-center">Website ChiCheck</p>
+                                    <h4 class="text-white font-weight-bolder text-center m-auto"><span class="fs-2">Tentang</span><span class="fs-6 ms-3">Website <span class="text-danger">ChiCheck</span></span></h4>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <ul class="text-dark">
-                                    <li class="mb-3">
+                            <div class="card-body mt-3 mx-4">
+                                <ul class="text-dark list-group">
+                                    <li class="mb-3 list-group">
                                         <strong>Melakukan Scanning Penyakit Ayam</strong>
                                         <p>Untuk Mengetahui Penyakit Ayam, kami menyediakan website ini yang nantinya bisa menggunakan foto kotoran ayam untuk melakukan scanning penyakit ayam.</p>
                                     </li>
-                                    <li class="mb-3">
+                                    <li class="mb-3 list-group">
                                         <strong>Melakukan Pendataan Untuk Efisiensi Sistem Manajemen</strong>
                                         <p>Memudahkan sistem manajemen dengan dengan menggunakan fitur pendataan yang ada di website kami. Guna mempermudah dan memberikan efisiensi pendataan dari manajemen peternakan ayam.</p>
                                     </li>
-                                    <li class="mb-3">
+                                    <li class="mb-3 list-group">
                                         <strong>Riwayat Scanning Penyakit Ayam</strong>
                                         <p>Fitur ini dapat digunakan ketika anda ingin melihat history penyakit ayam yang sudah di scanning oleh anda.</p>
                                     </li>

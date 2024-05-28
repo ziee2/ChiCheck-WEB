@@ -65,7 +65,14 @@
                                                 </div>
                                             </div>
                                     @endif
-
+                                    <!-- @if ($errors->any())
+                                        <div class="alert alert-danger alert-dismissible text-white mt-2" role="alert">
+                                            <span class="text-sm">{{ $errors->first() }}</span>
+                                            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @endif -->
                                     <a rel="tooltip" class="btn-link ms-5" href="#" data-original-title="Tambah Kandang" data-bs-toggle="modal" data-bs-target="#pakanModal">
                                         <button class="btn btn-success">Tambah Pakan</button>
                                     </a>
@@ -125,11 +132,17 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Pakan</label>
-                        <input value="{{ $pakan->nama }}"type="text" class="form-control" id="nama" name="nama" required>
+                        <input value="{{ $pakan->nama }}"type="text" class="form-control" id="nama" name="nama">
+                        @error('nama') 
+                        <p class='text-danger inputerror'>{{ $message }} </p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="stok_pakan" class="form-label">Stok Pakan</label>
-                        <input value="{{ $pakan->stok_pakan }}" type="number" class="form-control" id="stok_pakan" name="stok_pakan" required pattern="\d*" title="Please enter a valid number">
+                        <input value="{{ $pakan->stok_pakan }}" type="number" class="form-control" id="stok_pakan" name="stok_pakan" pattern="\d*" title="Please enter a valid number">
+                        @error('stok_pakan') 
+                        <p class='text-danger inputerror'>{{ $message }} </p>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -172,10 +185,16 @@
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama" required>
+                        @error('nama') 
+                        <p class='text-danger inputerror'>{{ $message }} </p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="stok_pakan" class="form-label">Stok</label>
                         <input type="number" class="form-control" id="stok_pakan" name="stok_pakan" required pattern="\d*" title="Please enter a valid number">
+                        @error('stok_pakan') 
+                        <p class='text-danger inputerror'>{{ $message }} </p>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">

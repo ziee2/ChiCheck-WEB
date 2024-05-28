@@ -36,9 +36,9 @@
                                                     @else
                                                     <p class="mb-1 mb-lg-4">Tidak ada prediksi terbaru.</p>
                                                     @endif
-                                                    <a class="mt-4 btn btn-warning btn-lg text-white fw-bold" href=" {{ route('scan') }} ">
+                                                    <!-- <a class="mt-4 btn btn-warning btn-lg text-white fw-bold" href=" {{ route('scan') }} ">
                                                         <span class="ms-2 font-weight-bold text-white">Scan Ulang</span>
-                                                    </a>
+                                                    </a> -->
                                                 </div>
                                                 </div>
                                             </div>

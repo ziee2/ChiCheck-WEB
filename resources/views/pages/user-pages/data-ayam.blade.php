@@ -66,7 +66,7 @@
                                             </div>
                                     @endif
                                         <a rel="tooltip" class="btn-link ms-5" href="#" data-original-title="Tambah Kandang" data-bs-toggle="modal" data-bs-target="#kandangModal">
-                                            <button class="btn btn-success">Tambah Kandang</button>
+                                            <button class="btn btn-success">Tambah</button>
                                         </a>
                                         <tbody>
                                         @if(isset($isEmpty) && $isEmpty)
@@ -112,7 +112,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editStokModalLabel{{ $ayam->id }}">Edit Status Pengguna</h5>
+                <h5 class="modal-title" id="editStokModalLabel{{ $ayam->id }}">Ubah Data</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ route('data-ayam.update', ['id' => $ayam->id]) }}" method="POST">
@@ -172,10 +172,16 @@
                     <div class="mb-3">
                         <label for="kandang" class="form-label">kandang</label>
                         <input type="text" class="form-control" id="kandang" name="kandang" required>
+                        @error('kandang') 
+                        <p class='text-danger inputerror'>{{ $message }} </p>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="stok_ayam" class="form-label">Stok</label>
                         <input type="number" class="form-control" id="stok_ayam" name="stok_ayam" required pattern="\d*" title="Please enter a valid number">
+                        @error('stok_ayam') 
+                        <p class='text-danger inputerror'>{{ $message }} </p>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">

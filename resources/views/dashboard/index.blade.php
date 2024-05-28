@@ -4,7 +4,7 @@
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Dashboard"></x-navbars.navs.auth>
         <!-- End Navbar -->
-        <!-- <h2>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </h2> -->
+        <h2 class="ms-3 mt-4 font-weight-bolder">Selamat Datang, {{ auth()->user()->username }}</h2>
         @if($notification)
             <div class="alert alert-warning">
                 {{ $notification }} perlu melakukan scanning terhadap ayam
@@ -16,7 +16,7 @@
                     <div class="card">
                         <div class="card-header p-3 pt-2">
                             <div
-                                class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                class="icon icon-lg icon-shape bg-gradient-warning shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                                 <!-- <i class="material-icons opacity-10">weekend</i> -->
                                 <svg width="62" height="62" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M44.62 26.25C44.62 26.25 48.995 19 46.995 18C44.995 17 41.995 19 41.995 19C41.995 19 43.995 12 39.995 12C35.995 12 34.995 16 34.995 16C34.995 16 33.538 7.70395 27.995 9.99995C24.531 11.435 22.995 15 27.995 25" fill="#EA5A47"/>
@@ -31,14 +31,9 @@
 
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Total Ayam</p>
-                                <h4 class="mb-0">{{ $totalStokAyam }} ekor</h4>
+                                <p class="text-sm mt-2 mb-4 text-capitalize">Data Ayam</p>
+                                <h4 class="mb-2 me-2">{{ $totalStokAyam }} ekor</h4>
                             </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than
-                                lask week</p>
                         </div>
                     </div>
                 </div>
@@ -46,7 +41,7 @@
                     <div class="card">
                         <div class="card-header p-3 pt-2">
                             <div
-                                class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                                class="icon icon-lg icon-shape bg-gradient-warning shadow-primary text-center border-radius-xl mt-n4 position-absolute">
                                 <!-- <i class="material-icons opacity-10">person</i> -->
                                 <!-- <i class="bi bi-egg-fill"></i> -->
                                 <svg width="50" height="60" viewBox="20 -10 20 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,14 +51,9 @@
 
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Total telur yang didapatkan</p>
-                                <h4 class="mb-0">{{ $totalStokTelur }}</h4>
+                                <p class="text-sm mt-2 mb-4 text-capitalize">Data Telur</p>
+                                <h4 class="mb-2 me-2">{{ $totalStokTelur }} Kg</h4>
                             </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
-                                lask month</p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +61,7 @@
                     <div class="card">
                         <div class="card-header p-3 pt-2">
                             <div
-                                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                class="icon icon-lg icon-shape bg-gradient-warning shadow-success text-center border-radius-xl mt-n4 position-absolute">
                                 <!-- <i class="material-icons opacity-10">person</i> -->
                                 <svg width="50" height="50" viewBox="0 0 50 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.25 4.16663H10.4167V45.8333H6.25V4.16663ZM39.5833 4.16663H12.5V45.8333H39.5833C41.8812 45.8333 43.75 43.9645 43.75 41.6666V8.33329C43.75 6.03538 41.8812 4.16663 39.5833 4.16663ZM37.5 25H18.75V20.8333H37.5V25ZM37.5 16.6666H18.75V12.5H37.5V16.6666Z" fill="#F24E1E"/>
@@ -79,14 +69,9 @@
 
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Pakan yang tersedia</p>
-                                <h4 class="mb-0">{{ $totalStokPakan }}</h4>
+                                <p class="text-sm mt-2 mb-4 text-capitalize">Data Pakan</p>
+                                <h4 class="mb-2 me-2">{{ $totalStokPakan }} Kg</h4>
                             </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than
-                                yesterday</p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +81,7 @@
                 <div class="col-lg-6 col-md-6 mt-4 mb-4">
                     <div class="card z-index-2 ">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                            <div class="bg-gradient-warning shadow-primary border-radius-lg py-3 pe-1">
                                 <div class="chart">
                                     <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
                                 </div>
@@ -104,19 +89,14 @@
                         </div>
                         <div class="card-body">
                             <h6 class="mb-0 ">Data Telur Harian</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
-                            </div>
+                            <!-- <p class="text-sm ">Last Campaign Performance</p> -->
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 mt-4 mb-4">
                     <div class="card z-index-2  ">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                            <div class="bg-gradient-warning shadow-success border-radius-lg py-3 pe-1">
                                 <div class="chart">
                                     <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
                                 </div>
@@ -124,36 +104,10 @@
                         </div>
                         <div class="card-body">
                             <h6 class="mb-0 ">Data Telur Bulanan</h6>
-                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today
-                                sales. </p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> updated 4 min ago </p>
-                            </div>
+                            <!-- <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p> -->
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-lg-4 mt-4 mb-3">
-                    <div class="card z-index-2 ">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                                <div class="chart">
-                                    <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="mb-0 ">Completed Tasks</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm">just updated</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
                 
                 </div>
@@ -176,7 +130,7 @@
             data: {
                 labels: dailyLabels,
                 datasets: [{
-                    label: "Data Telur Harian",
+                    label: "Data Telur Harian (Kg)",
                     tension: 0.4,
                     borderWidth: 0,
                     borderRadius: 4,
@@ -259,7 +213,7 @@
             data: {
                 labels: monthLabels,
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Telur (Kg)",
                     tension: 0,
                     borderWidth: 0,
                     pointRadius: 5,
@@ -301,88 +255,6 @@
                             display: true,
                             color: '#f8f9fa',
                             padding: 10,
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#f8f9fa',
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-
-        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-
-        new Chart(ctx3, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0,
-                    borderWidth: 0,
-                    pointRadius: 5,
-                    pointBackgroundColor: "rgba(255, 255, 255, .8)",
-                    pointBorderColor: "transparent",
-                    borderColor: "rgba(255, 255, 255, .8)",
-                    borderWidth: 4,
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                            color: 'rgba(255, 255, 255, .2)'
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#f8f9fa',
                             font: {
                                 size: 14,
                                 weight: 300,
